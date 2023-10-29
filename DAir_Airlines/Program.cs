@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DAirDatabaseContext>(options => options.UseSqlServer("Server=localhost;Database=YourDatabaseName;Trusted_Connection=True;"));
+builder.Services.AddDbContext<DAirDatabaseContext>(options => options.UseSqlServer("Server=localhost;Database=YourDatabaseName;Trusted_Connection=True;Encrypt=False;"));
 
 var app = builder.Build();
 

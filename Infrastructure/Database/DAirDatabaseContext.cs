@@ -24,7 +24,7 @@ namespace Infrastructure.Database
         public DbSet<EmployeeAssignmentDto> EmployeeAssignments { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=YourDatabaseName;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=YourDatabaseName;Trusted_Connection=True;Encrypt=False;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -113,11 +113,13 @@ namespace Infrastructure.Database
             modelBuilder.Entity<PilotRatingsDto>()
                 .HasOne(typeof(PilotDto))
                 .WithMany()
-                .HasForeignKey("RatingPilotLicenseNumber");
+                .HasForeignKey("RatingPilotLicenseNumber")
+                .OnDelete(DeleteBehavior.Restrict); ;
             modelBuilder.Entity<PilotRatingsDto>()
                 .HasOne(typeof(EmployeeDto))
                 .WithMany()
-                .HasForeignKey("RatedEmployeeNumber");
+                .HasForeignKey("RatedEmployeeNumber")
+                .OnDelete(DeleteBehavior.Restrict); ;
 
             // Flight to Aircraft, Pilot (Captain & FirstOfficer), FlightState
             modelBuilder.Entity<FlightDto>()
@@ -127,11 +129,13 @@ namespace Infrastructure.Database
             modelBuilder.Entity<FlightDto>()
                 .HasOne(typeof(PilotDto))
                 .WithMany()
-                .HasForeignKey("CaptainLicenseNumber");
+                .HasForeignKey("CaptainLicenseNumber")
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<FlightDto>()
                 .HasOne(typeof(PilotDto))
                 .WithMany()
-                .HasForeignKey("FirstOfficerLicenseNumber");
+                .HasForeignKey("FirstOfficerLicenseNumber")
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<FlightDto>()
                 .HasOne(typeof(FlightStateDto))
                 .WithMany()
