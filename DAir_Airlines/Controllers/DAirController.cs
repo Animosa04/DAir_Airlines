@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAir_Airlines.Interfaces;
+using Database.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DAir_Airlines.Controllers
 {
@@ -7,10 +9,12 @@ namespace DAir_Airlines.Controllers
     public class DAirController : Controller
     {
         private readonly ILogger<DAirController> _logger;
+        public readonly IDAirService _dAirservice;
 
-        public DAirController(ILogger<DAirController> logger)
+        public DAirController(ILogger<DAirController> logger, IDAirService dAirService)
         {
             _logger = logger;
+            _dAirservice = dAirService;
         }
 
         /// <summary>
@@ -18,9 +22,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("FirstQuery")]
-        public async Task<IActionResult> GetFirstQuery()
+        public async Task<IActionResult> GetFirstQuery(string flightCode)
         {
-            return Ok();
+            var flightInfo = _dAirservice.GetFlightDetailsByCode(flightCode);
+            return Ok(flightInfo);
         }
 
         /// <summary>
