@@ -65,9 +65,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("FifthQuery")]
-        public async Task<IActionResult> GetFifthQuery()
+        public async Task<IActionResult> GetFifthQuery(string pilotLicenseNumber)
         {
-            return Ok();
+            var averageRating = _dAirservice.GetAverageRatingByPilot(pilotLicenseNumber);
+            return Ok(averageRating);
         }
 
         /// <summary>

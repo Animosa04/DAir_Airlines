@@ -12,5 +12,7 @@ namespace Database.Interfaces
         public FlightInfoDto GetFlightDetailsByCode(string flightCode);
         public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode);
         public int GetNumberOfCanceledFlights();
+
+        public double GetAverageRatingByPilot(string pilotLicenseNumber);
     }
 }

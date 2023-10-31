@@ -74,6 +74,21 @@ namespace Database
 
             return canceledFlightsCount;
         }
+
+        public double GetAverageRatingByPilot(string pilotLicenseNumber)
+        {
+            var pilotRatings = _context.PilotRatings
+                                       .Where(pr => pr.RatingPilotLicenseNumber == pilotLicenseNumber)
+                                       .ToList();
+
+            if (pilotRatings.Any())
+            {
+                return pilotRatings.Average(pr => pr.Rating);
+            }
+
+            return 0.0;
+        }
+
     }
 
     
