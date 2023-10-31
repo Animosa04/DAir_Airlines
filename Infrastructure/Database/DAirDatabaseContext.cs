@@ -22,10 +22,6 @@ namespace Infrastructure.Database
         public DbSet<FlightDto> Flights { get; set; }
         public DbSet<DailyTripDto> DailyTrips { get; set; }
         public DbSet<EmployeeAssignmentDto> EmployeeAssignments { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=YourDatabaseName;Trusted_Connection=True;Encrypt=False;");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
