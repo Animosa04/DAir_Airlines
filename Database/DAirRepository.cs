@@ -37,6 +37,30 @@ namespace Database
 
             return flightInfo;
         }
+
+        public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
+        {
+            var crewNames = _context.Pilots
+                                    .Join(_context.Employees,
+                                          p => p.PilotEmployeeNumber,
+                                          e => e.EmployeeNumber,
+                                          (p, e) => new { Pilot = p, Employee = e })
+                                    .Join(_context.PilotCertifications,
+                                          pe => pe.Pilot.PilotLicenseNumber,
+                                          pc => pc.PilotLicenseNumber,
+                                          (pe, pc) => new { PilotEmployee = pe, PilotCertification = pc })
+                                    .Join(_context.DailyTrips,
+                                          pepc => pepc.PilotEmployee.Employee.EmployeeNumber,
+                                          dt => dt.EmployeeNumber,
+                                          (pepc, dt) => new { PilotEmployeeCertification = pepc, DailyTrip = dt })
+                                    .Where(pepcdt => pepcdt.PilotEmployeeCertification.PilotCertification.AircraftModel == "Airbus A350"
+                                                    && pepcdt.DailyTrip.BaseAirport == airportCode)
+                                    .Select(pepcdt => pepcdt.PilotEmployeeCertification.PilotEmployee.Employee.EmployeeName)
+                                    .Distinct()
+                                    .ToList();
+
+            return crewNames.ToList();
+        }
     }
 
     

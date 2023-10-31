@@ -16,5 +16,11 @@ namespace DAir_Airlines.Services
             var flightDetails = _repository.GetFlightDetailsByCode(flightCode);
             return flightDetails;
         }
+
+        public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
+        {
+            var crewMembers = _repository.GetCertifiedCrewMembersForAirbusA350AtAirport(airportCode);
+            return crewMembers;
+        }
     }
 }

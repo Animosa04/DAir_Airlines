@@ -10,5 +10,6 @@ namespace Database.Interfaces
     public interface IDAirRepository
     {
         public FlightInfoDto GetFlightDetailsByCode(string flightCode);
+        public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode);
     }
 }

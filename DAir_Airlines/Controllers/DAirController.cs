@@ -22,7 +22,7 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("FirstQuery")]
-        public async Task<IActionResult> GetFirstQuery(string flightCode)
+        public IActionResult GetFirstQuery(string flightCode)
         {
             var flightInfo = _dAirservice.GetFlightDetailsByCode(flightCode);
             return Ok(flightInfo);
@@ -33,9 +33,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("SecondQuery")]
-        public async Task<IActionResult> GetSecondQuery()
+        public IActionResult GetSecondQuery(string airportCode)
         {
-            return Ok();
+            var crewMembers = _dAirservice.GetCertifiedCrewMembersForAirbusA350AtAirport(airportCode);
+            return Ok(crewMembers);
         }
 
         /// <summary>
