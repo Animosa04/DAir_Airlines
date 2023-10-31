@@ -14,5 +14,6 @@ namespace Database.Interfaces
         public int GetNumberOfCanceledFlights();
         public double GetAverageRatingByPilot(string pilotLicenseNumber);
         public List<string> GetLanguagesByCabinCrewMember(string cabinCrewMemberNumber);
+        public List<CabinCrewRatingDto> GetAverageRatingsForCabinCrew();
     }
 }

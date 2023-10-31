@@ -40,5 +40,11 @@ namespace DAir_Airlines.Services
             var languages = _repository.GetLanguagesByCabinCrewMember(cabinCrewMemberNumber);
             return languages;
         }
+
+        public List<CabinCrewRatingDto> GetAverageRatingsForCabinCrew()
+        {
+            var cabinCrewRatings = _repository.GetAverageRatingsForCabinCrew();
+            return cabinCrewRatings;
+        }
     }
 }

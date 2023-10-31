@@ -110,5 +110,26 @@ namespace Database
             return languages;
         }
 
+        public List<CabinCrewRatingDto> GetAverageRatingsForCabinCrew()
+        {
+            var ratings = _context.PilotRatings
+                                  .Join(
+                                      _context.Employees,
+                                      pr => pr.RatedEmployeeNumber,
+                                      e => e.EmployeeNumber,
+                                      (pr, e) => new { pr.Rating, e.EmployeeNumber }
+                                  )
+                                  .GroupBy(x => x.EmployeeNumber)
+                                  .Select(g => new CabinCrewRatingDto
+                                  {
+                                      EmployeeNumber = g.Key,
+                                      AverageRating = g.Average(x => x.Rating)
+                                  })
+                                  .OrderByDescending(r => r.AverageRating)
+                                  .ToList();
+
+            return ratings;
+        }
+
     }
 }

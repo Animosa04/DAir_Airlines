@@ -87,9 +87,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("SeventhQuery")]
-        public async Task<IActionResult> GetSeventhQuery()
+        public IActionResult GetSeventhQuery()
         {
-            return Ok();
+            var cabinCrewRatings = _dAirservice.GetAverageRatingsForCabinCrew();
+            return Ok(cabinCrewRatings);
         }
     }
 }
