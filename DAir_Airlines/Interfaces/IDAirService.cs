@@ -8,5 +8,6 @@ namespace DAir_Airlines.Interfaces
         public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode);
         public int GetNumberOfCanceledFlights();
         public double GetAverageRatingByPilot(string pilotLicenseNumber);
+        public List<string> GetLanguagesByCabinCrewMember(string cabinCrewMemberNumber);
     }
 }

@@ -89,7 +89,26 @@ namespace Database
             return 0.0;
         }
 
-    }
+        public List<string> GetLanguagesByCabinCrewMember(string cabinCrewMemberNumber)
+        {
+            var languages = _context.CabinCrewMembers
+                                    .Where(cc => cc.CabinCrewMemberNumber == cabinCrewMemberNumber)
+                                    .Join(
+                                        _context.CabinCrewLanguages,
+                                        cc => cc.CabinCrewMemberNumber,
+                                        ccl => ccl.CabinCrewMemberNumber,
+                                        (cc, ccl) => ccl.LanguageID
+                                    )
+                                    .Join(
+                                        _context.Languages,
+                                        ccl => ccl,
+                                        l => l.LanguageID,
+                                        (ccl, l) => l.LanguageName
+                                    )
+                                    .ToList();
 
-    
+            return languages;
+        }
+
+    }
 }

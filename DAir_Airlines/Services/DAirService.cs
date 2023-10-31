@@ -34,5 +34,11 @@ namespace DAir_Airlines.Services
             var averageRating = _repository.GetAverageRatingByPilot(pilotLicenseNumber);
             return averageRating;
         }
+
+        public List<string> GetLanguagesByCabinCrewMember(string cabinCrewMemberNumber)
+        {
+            var languages = _repository.GetLanguagesByCabinCrewMember(cabinCrewMemberNumber);
+            return languages;
+        }
     }
 }

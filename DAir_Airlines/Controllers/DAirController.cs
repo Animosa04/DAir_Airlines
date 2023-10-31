@@ -44,7 +44,7 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("ThirdQuery")]
-        public async Task<IActionResult> GetThirdQuery()
+        public IActionResult GetThirdQuery()
         {
             var numberOfCancelledFlights = _dAirservice.GetNumberOfCanceledFlights();
             return Ok(numberOfCancelledFlights);
@@ -65,7 +65,7 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("FifthQuery")]
-        public async Task<IActionResult> GetFifthQuery(string pilotLicenseNumber)
+        public IActionResult GetFifthQuery(string pilotLicenseNumber)
         {
             var averageRating = _dAirservice.GetAverageRatingByPilot(pilotLicenseNumber);
             return Ok(averageRating);
@@ -76,9 +76,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("SixthQuery")]
-        public async Task<IActionResult> GetSixthQuery()
+        public IActionResult GetSixthQuery(string cabinCrewMemberNumber)
         {
-            return Ok();
+            var languages = _dAirservice.GetLanguagesByCabinCrewMember(cabinCrewMemberNumber);
+            return Ok(languages);
         }
 
         /// <summary>
