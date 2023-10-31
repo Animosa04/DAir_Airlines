@@ -61,6 +61,19 @@ namespace Database
 
             return crewNames.ToList();
         }
+
+        public int GetNumberOfCanceledFlights()
+        {
+            var canceledFlightsCount = _context.Flights
+                                               .Join(_context.FlightStates,
+                                                     f => f.CurrentStateID,
+                                                     fs => fs.StateID,
+                                                     (f, fs) => new { Flight = f, FlightState = fs })
+                                               .Where(joined => joined.FlightState.StateName == "Cancelled")
+                                               .Count();
+
+            return canceledFlightsCount;
+        }
     }
 
     

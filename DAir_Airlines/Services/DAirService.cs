@@ -22,5 +22,11 @@ namespace DAir_Airlines.Services
             var crewMembers = _repository.GetCertifiedCrewMembersForAirbusA350AtAirport(airportCode);
             return crewMembers;
         }
+
+        public int GetNumberOfCanceledFlights()
+        {
+            var numberOfCancelledFlights = _repository.GetNumberOfCanceledFlights();
+            return numberOfCancelledFlights;
+        }
     }
 }

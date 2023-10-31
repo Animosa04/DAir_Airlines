@@ -46,7 +46,8 @@ namespace DAir_Airlines.Controllers
         [Route("ThirdQuery")]
         public async Task<IActionResult> GetThirdQuery()
         {
-            return Ok();
+            var numberOfCancelledFlights = _dAirservice.GetNumberOfCanceledFlights();
+            return Ok(numberOfCancelledFlights);
         }
 
         /// <summary>
