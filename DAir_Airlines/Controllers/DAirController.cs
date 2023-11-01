@@ -1,5 +1,4 @@
 ﻿using DAir_Airlines.Interfaces;
-using Database.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DAir_Airlines.Controllers
