@@ -2,7 +2,7 @@ using DAir_Airlines.Interfaces;
 using DAir_Airlines.Services;
 using Database;
 using Database.Interfaces;
-using Infrastructure.Database;
+using Database.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;

@@ -1,8 +1,7 @@
 ﻿using Database.DTOs;
 using Database.Interfaces;
-using Infrastructure.Database;
 
-namespace Database
+namespace Database.Repositories
 {
     public class DAirRepository : IDAirRepository
     {
