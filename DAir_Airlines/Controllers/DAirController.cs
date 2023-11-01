@@ -55,9 +55,10 @@ namespace DAir_Airlines.Controllers
         /// </summary>
         [HttpGet]
         [Route("FourthQuery")]
-        public async Task<IActionResult> GetFourthQuery()
+        public IActionResult GetFourthQuery()
         {
-            return Ok();
+            var employeeFlights = _dAirservice.GetEmployeeFlightCountFromAirports();
+            return Ok(employeeFlights);
         }
 
         /// <summary>

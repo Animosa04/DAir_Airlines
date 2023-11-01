@@ -75,6 +75,34 @@ namespace Database
             return canceledFlightsCount;
         }
 
+        public List<EmployeeFlightCountDto> GetEmployeeFlightCountFromAirports()
+        {
+            var flightCounts = _context.Employees
+                                       .Join(
+                                           _context.DailyTrips,
+                                           e => e.EmployeeNumber,
+                                           dt => dt.EmployeeNumber,
+                                           (e, dt) => new { e.EmployeeName, dt.BaseAirport, dt.TripID }
+                                       )
+                                       .Join(
+                                           _context.EmployeeAssignments,
+                                           temp => temp.TripID,
+                                           ea => ea.TripID,
+                                           (temp, ea) => new { temp.EmployeeName, temp.BaseAirport }
+                                       )
+                                       .GroupBy(x => new { x.EmployeeName, x.BaseAirport })
+                                       .Select(g => new EmployeeFlightCountDto
+                                       {
+                                           EmployeeName = g.Key.EmployeeName,
+                                           BaseAirport = g.Key.BaseAirport,
+                                           NumberOfFlights = g.Count()
+                                       })
+                                       .OrderBy(r => r.NumberOfFlights)
+                                       .ToList();
+
+            return flightCounts;
+        }
+
         public double GetAverageRatingByPilot(string pilotLicenseNumber)
         {
             var pilotRatings = _context.PilotRatings

@@ -29,6 +29,12 @@ namespace DAir_Airlines.Services
             return numberOfCancelledFlights;
         }
 
+        public List<EmployeeFlightCountDto> GetEmployeeFlightCountFromAirports()
+        {
+            var employeeFlights = _repository.GetEmployeeFlightCountFromAirports();
+            return employeeFlights;
+        }
+
         public double GetAverageRatingByPilot(string pilotLicenseNumber)
         {
             var averageRating = _repository.GetAverageRatingByPilot(pilotLicenseNumber);
