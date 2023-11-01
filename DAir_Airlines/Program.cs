@@ -3,6 +3,10 @@ using Infrastructure.Database;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using System.Text.Json;
 using System.Data.SqlClient;
+using Database.Interfaces;
+using DAir_Airlines.Interfaces;
+using Database;
+using DAir_Airlines.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +20,8 @@ builder.Services.AddHealthChecks()
     .AddDbContextCheck<DAirDatabaseContext>("Database");
 builder.Services.AddDbContext<DAirDatabaseContext>(options => options.UseSqlServer("Server=localhost;Database=YourDatabaseName;User Id=DAir;Password=DAirAirlines123!;Trusted_Connection=False;Encrypt=False;"));
 //builder.Services.AddDbContext<DAirDatabaseContext>(options => options.UseSqlServer("Server=localhost;Database=YourDatabaseName;User Id=dd;Password=dd;Trusted_Connection=False;Encrypt=False;"));
+builder.Services.AddScoped<IDAirRepository,DAirRepository>();
+builder.Services.AddScoped<IDAirService,DAirService>();
 
 var app = builder.Build();
 
