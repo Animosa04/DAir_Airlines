@@ -2,7 +2,7 @@
 {
     public class CabinCrewRatingDto
     {
-        public string EmployeeNumber { get; set; }
+        public string CabinCrewMemberNumber { get; set; }
         public double AverageRating { get; set; }
     }
 }

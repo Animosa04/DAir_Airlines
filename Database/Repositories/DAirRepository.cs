@@ -141,15 +141,15 @@ namespace Database.Repositories
         {
             var ratings = _context.PilotRatings
                                   .Join(
-                                      _context.Employees,
-                                      pr => pr.RatedEmployeeNumber,
-                                      e => e.EmployeeNumber,
-                                      (pr, e) => new { pr.Rating, e.EmployeeNumber }
+                                      _context.CabinCrewMembers,
+                                      pr => pr.RatedCabinCrewMemberNumber,
+                                      cc => cc.CabinCrewMemberNumber,
+                                      (pr, cc) => new { pr.Rating, CabinCrewMemberNumber = cc.CabinCrewMemberNumber }
                                   )
-                                  .GroupBy(x => x.EmployeeNumber)
+                                  .GroupBy(x => x.CabinCrewMemberNumber)
                                   .Select(g => new CabinCrewRatingDto
                                   {
-                                      EmployeeNumber = g.Key,
+                                      CabinCrewMemberNumber = g.Key,
                                       AverageRating = g.Average(x => x.Rating)
                                   })
                                   .OrderByDescending(r => r.AverageRating)
@@ -157,6 +157,7 @@ namespace Database.Repositories
 
             return ratings;
         }
+
 
     }
 }

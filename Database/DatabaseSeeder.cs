@@ -16,6 +16,7 @@ namespace Database
             SeedPilots(context);
             SeedPilotCertifications(context);
             SeedPilotRatings(context);
+            SeedPilotConflicts(context);
             SeedFlightState(context);
             SeedFlights(context);
             SeedDailyTrips(context);
@@ -192,29 +193,46 @@ namespace Database
             {
                 var pilotRatings = new List<PilotRatingsDto>
         {
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedEmployeeNumber = "E003", Rating = 5 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedEmployeeNumber = "E002", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedEmployeeNumber = "E003", Rating = 5 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedEmployeeNumber = "E001", Rating = 3 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedEmployeeNumber = "E001", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedEmployeeNumber = "E004", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedEmployeeNumber = "E003", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedEmployeeNumber = "E003", Rating = 3 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedEmployeeNumber = "E004", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedEmployeeNumber = "E002", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedEmployeeNumber = "E006", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedEmployeeNumber = "E002", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedEmployeeNumber = "E008", Rating = 3 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedEmployeeNumber = "E009", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedEmployeeNumber = "E003", Rating = 5 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedEmployeeNumber = "E009", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedEmployeeNumber = "E003", Rating = 3 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedEmployeeNumber = "E006", Rating = 4 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedEmployeeNumber = "E002", Rating = 2 },
-            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedEmployeeNumber = "E008", Rating = 5 }
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedCabinCrewMemberNumber = "CC003", Rating = 5 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedCabinCrewMemberNumber = "CC002", Rating = 2 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedCabinCrewMemberNumber = "CC003", Rating = 5 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedCabinCrewMemberNumber = "CC001", Rating = 3 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedCabinCrewMemberNumber = "CC001", Rating = 4 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedCabinCrewMemberNumber = "CC004", Rating = 4 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedCabinCrewMemberNumber = "CC003", Rating = 2 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P003", RatedCabinCrewMemberNumber = "CC003", Rating = 3 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedCabinCrewMemberNumber = "CC004", Rating = 4 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedCabinCrewMemberNumber = "CC002", Rating = 2 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedCabinCrewMemberNumber = "CC002", Rating = 2 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedCabinCrewMemberNumber = "CC003", Rating = 5 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedCabinCrewMemberNumber = "CC003", Rating = 3 },
+            new PilotRatingsDto { RatingPilotLicenseNumber = "P004", RatedCabinCrewMemberNumber = "CC002", Rating = 2 }
         };
 
                 context.PilotRatings.AddRange(pilotRatings);
+                context.SaveChanges();
+            }
+        }
+
+        private static void SeedPilotConflicts(DAirDatabaseContext context)
+        {
+            if (!context.PilotConflicts.Any())
+            {
+                var pilotConflicts = new List<PilotConflictsDto>
+        {
+            new PilotConflictsDto { PilotLicenseNumber = "P001", ConflicsWithPilot = "P002" },
+            new PilotConflictsDto { PilotLicenseNumber = "P001", ConflicsWithPilot = "P003" },
+            new PilotConflictsDto { PilotLicenseNumber = "P002", ConflicsWithPilot = "P004" },
+            new PilotConflictsDto { PilotLicenseNumber = "P003", ConflicsWithPilot = "P005" },
+            new PilotConflictsDto { PilotLicenseNumber = "P004", ConflicsWithPilot = "P001" },
+            new PilotConflictsDto { PilotLicenseNumber = "P005", ConflicsWithPilot = "P003" },
+            new PilotConflictsDto { PilotLicenseNumber = "P002", ConflicsWithPilot = "P005" },
+            new PilotConflictsDto { PilotLicenseNumber = "P004", ConflicsWithPilot = "P003" },
+            new PilotConflictsDto { PilotLicenseNumber = "P003", ConflicsWithPilot = "P002" },
+            new PilotConflictsDto { PilotLicenseNumber = "P005", ConflicsWithPilot = "P004" }
+        };
+
+                context.PilotConflicts.AddRange(pilotConflicts);
                 context.SaveChanges();
             }
         }
