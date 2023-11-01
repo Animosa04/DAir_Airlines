@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAir_Airlines", "DAir_Airlines\DAir_Airlines.csproj", "{589F72D4-5A0F-4298-9955-EC49B41F30C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Infrastructure\Database.csproj", "{F33F76C7-35B0-404B-B6CE-E90B2597F4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{F33F76C7-35B0-404B-B6CE-E90B2597F4FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
