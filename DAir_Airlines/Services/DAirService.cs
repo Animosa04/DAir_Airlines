@@ -8,11 +8,13 @@ namespace DAir_Airlines.Services
     {
         private IDAirRepository _repository;
 
-        public DAirService(IDAirRepository dAirRepository) { 
+        public DAirService(IDAirRepository dAirRepository)
+        {
             _repository = dAirRepository;
         }
 
-        public FlightInfoDto GetFlightDetailsByCode(string flightCode) {
+        public FlightInfoDto GetFlightDetailsByCode(string flightCode)
+        {
             var flightDetails = _repository.GetFlightDetailsByCode(flightCode);
             return flightDetails;
         }

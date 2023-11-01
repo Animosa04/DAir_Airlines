@@ -1,7 +1,7 @@
-﻿using Infrastructure.Database.DTOs;
+﻿using Database.DTOs;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database
+namespace Database
 {
     public class DAirDatabaseContext : DbContext
     {

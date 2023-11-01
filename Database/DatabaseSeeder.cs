@@ -1,33 +1,33 @@
-﻿
-using Infrastructure.Database;
-using Infrastructure.Database.DTOs;
+﻿using Database.DTOs;
 
-public static class DatabaseSeeder
+namespace Database
 {
-    public static void Seed(DAirDatabaseContext context)
+    public static class DatabaseSeeder
     {
-        SeedAircraftModels(context);
-        SeedAircraft(context);
-        SeedEmployees(context);
-        SeedLanguages(context);
-        SeedLanguages(context);
-        SeedCabinCrewMembers(context);
-        SeedCabinCrewLanguages(context);
-        SeedPilots(context);
-        SeedPilotCertifications(context);
-        SeedPilotRatings(context);
-        SeedFlightState(context);
-        SeedFlights(context);
-        SeedDailyTrips(context);
-        SeedEmployeeAssignments(context);
-    }
-
-    private static void SeedAircraftModels(DAirDatabaseContext context)
-    {
-        // Check if the data is already seeded
-        if (!context.AircraftModels.Any())
+        public static void Seed(DAirDatabaseContext context)
         {
-            var models = new List<AircraftModelDto>
+            SeedAircraftModels(context);
+            SeedAircraft(context);
+            SeedEmployees(context);
+            SeedLanguages(context);
+            SeedLanguages(context);
+            SeedCabinCrewMembers(context);
+            SeedCabinCrewLanguages(context);
+            SeedPilots(context);
+            SeedPilotCertifications(context);
+            SeedPilotRatings(context);
+            SeedFlightState(context);
+            SeedFlights(context);
+            SeedDailyTrips(context);
+            SeedEmployeeAssignments(context);
+        }
+
+        private static void SeedAircraftModels(DAirDatabaseContext context)
+        {
+            // Check if the data is already seeded
+            if (!context.AircraftModels.Any())
+            {
+                var models = new List<AircraftModelDto>
             {
                 new AircraftModelDto { Model = "Boeing 737", Manufacturer = "Boeing", PassengerCapacity = 189 },
                 new AircraftModelDto { Model = "Airbus A320", Manufacturer = "Airbus", PassengerCapacity = 150 },
@@ -41,16 +41,16 @@ public static class DatabaseSeeder
                 new AircraftModelDto { Model = "Embraer E145", Manufacturer = "Embraer", PassengerCapacity = 50 }
             };
 
-            context.AircraftModels.AddRange(models);
-            context.SaveChanges();
+                context.AircraftModels.AddRange(models);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedAircraft(DAirDatabaseContext context)
-    {
-        if (!context.Aircrafts.Any())
+        private static void SeedAircraft(DAirDatabaseContext context)
         {
-            var aircrafts = new List<AircraftDto>
+            if (!context.Aircrafts.Any())
+            {
+                var aircrafts = new List<AircraftDto>
         {
             new AircraftDto { RegistrationNumber = "SG101", AircraftModel = "Boeing 737", YearOfManufacture = 2019 },
             new AircraftDto { RegistrationNumber = "SG102", AircraftModel = "Airbus A320", YearOfManufacture = 2018 },
@@ -64,16 +64,16 @@ public static class DatabaseSeeder
             new AircraftDto { RegistrationNumber = "SG110", AircraftModel = "Embraer E145", YearOfManufacture = 2015 }
         };
 
-            context.Aircrafts.AddRange(aircrafts);
-            context.SaveChanges();
+                context.Aircrafts.AddRange(aircrafts);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedEmployees(DAirDatabaseContext context)
-    {
-        if (!context.Employees.Any())
+        private static void SeedEmployees(DAirDatabaseContext context)
         {
-            var employees = new List<EmployeeDto>
+            if (!context.Employees.Any())
+            {
+                var employees = new List<EmployeeDto>
         {
             new EmployeeDto { EmployeeNumber = "E001", EmployeeName = "John Doe" },
             new EmployeeDto { EmployeeNumber = "E002", EmployeeName = "Jane Smith" },
@@ -87,16 +87,16 @@ public static class DatabaseSeeder
             new EmployeeDto { EmployeeNumber = "E010", EmployeeName = "Grace Taylor" }
         };
 
-            context.Employees.AddRange(employees);
-            context.SaveChanges();
+                context.Employees.AddRange(employees);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedLanguages(DAirDatabaseContext context)
-    {
-        if (!context.Languages.Any())
+        private static void SeedLanguages(DAirDatabaseContext context)
         {
-            var languages = new List<LanguageDto>
+            if (!context.Languages.Any())
+            {
+                var languages = new List<LanguageDto>
         {
             new LanguageDto { LanguageName = "English" },
             new LanguageDto { LanguageName = "Spanish" },
@@ -105,16 +105,16 @@ public static class DatabaseSeeder
             new LanguageDto { LanguageName = "Chinese" }
         };
 
-            context.Languages.AddRange(languages);
-            context.SaveChanges();
+                context.Languages.AddRange(languages);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedCabinCrewMembers(DAirDatabaseContext context)
-    {
-        if (!context.CabinCrewMembers.Any())
+        private static void SeedCabinCrewMembers(DAirDatabaseContext context)
         {
-            var cabinCrewMembers = new List<CabinCrewMemberDto>
+            if (!context.CabinCrewMembers.Any())
+            {
+                var cabinCrewMembers = new List<CabinCrewMemberDto>
         {
             new CabinCrewMemberDto { CabinCrewMemberNumber = "CC001", CrewMemberEmployeeNumber = "E001", Position = "Pursuer" },
             new CabinCrewMemberDto { CabinCrewMemberNumber = "CC002", CrewMemberEmployeeNumber = "E002", Position = "Flight Attendant" },
@@ -123,16 +123,16 @@ public static class DatabaseSeeder
             new CabinCrewMemberDto { CabinCrewMemberNumber = "CC005", CrewMemberEmployeeNumber = "E005", Position = "Pursuer" }
         };
 
-            context.CabinCrewMembers.AddRange(cabinCrewMembers);
-            context.SaveChanges();
+                context.CabinCrewMembers.AddRange(cabinCrewMembers);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedCabinCrewLanguages(DAirDatabaseContext context)
-    {
-        if (!context.CabinCrewLanguages.Any())
+        private static void SeedCabinCrewLanguages(DAirDatabaseContext context)
         {
-            var cabinCrewLanguages = new List<CabinCrewLanguagesDto>
+            if (!context.CabinCrewLanguages.Any())
+            {
+                var cabinCrewLanguages = new List<CabinCrewLanguagesDto>
         {
             new CabinCrewLanguagesDto { CabinCrewMemberNumber = "CC001", LanguageID = 1 },
             new CabinCrewLanguagesDto { CabinCrewMemberNumber = "CC001", LanguageID = 2 },
@@ -144,16 +144,16 @@ public static class DatabaseSeeder
             new CabinCrewLanguagesDto { CabinCrewMemberNumber = "CC005", LanguageID = 4 }
         };
 
-            context.CabinCrewLanguages.AddRange(cabinCrewLanguages);
-            context.SaveChanges();
+                context.CabinCrewLanguages.AddRange(cabinCrewLanguages);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedPilots(DAirDatabaseContext context)
-    {
-        if (!context.Pilots.Any())
+        private static void SeedPilots(DAirDatabaseContext context)
         {
-            var pilots = new List<PilotDto>
+            if (!context.Pilots.Any())
+            {
+                var pilots = new List<PilotDto>
         {
             new PilotDto { PilotLicenseNumber = "P001", PilotEmployeeNumber = "E006", Position = "Captain" },
             new PilotDto { PilotLicenseNumber = "P002", PilotEmployeeNumber = "E007", Position = "First Officer" },
@@ -162,16 +162,16 @@ public static class DatabaseSeeder
             new PilotDto { PilotLicenseNumber = "P005", PilotEmployeeNumber = "E010", Position = "Captain" }
         };
 
-            context.Pilots.AddRange(pilots);
-            context.SaveChanges();
+                context.Pilots.AddRange(pilots);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedPilotCertifications(DAirDatabaseContext context)
-    {
-        if (!context.PilotCertifications.Any())
+        private static void SeedPilotCertifications(DAirDatabaseContext context)
         {
-            var pilotCertifications = new List<PilotCertificationsDto>
+            if (!context.PilotCertifications.Any())
+            {
+                var pilotCertifications = new List<PilotCertificationsDto>
         {
             new PilotCertificationsDto { PilotLicenseNumber = "P001", AircraftModel = "Airbus A350" },
             new PilotCertificationsDto { PilotLicenseNumber = "P001", AircraftModel = "Boeing 747" },
@@ -181,16 +181,16 @@ public static class DatabaseSeeder
             new PilotCertificationsDto { PilotLicenseNumber = "P005", AircraftModel = "Airbus A350" }
         };
 
-            context.PilotCertifications.AddRange(pilotCertifications);
-            context.SaveChanges();
+                context.PilotCertifications.AddRange(pilotCertifications);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedPilotRatings(DAirDatabaseContext context)
-    {
-        if (!context.PilotRatings.Any())
+        private static void SeedPilotRatings(DAirDatabaseContext context)
         {
-            var pilotRatings = new List<PilotRatingsDto>
+            if (!context.PilotRatings.Any())
+            {
+                var pilotRatings = new List<PilotRatingsDto>
         {
             new PilotRatingsDto { RatingPilotLicenseNumber = "P001", RatedEmployeeNumber = "E003", Rating = 5 },
             new PilotRatingsDto { RatingPilotLicenseNumber = "P002", RatedEmployeeNumber = "E002", Rating = 2 },
@@ -214,16 +214,16 @@ public static class DatabaseSeeder
             new PilotRatingsDto { RatingPilotLicenseNumber = "P005", RatedEmployeeNumber = "E008", Rating = 5 }
         };
 
-            context.PilotRatings.AddRange(pilotRatings);
-            context.SaveChanges();
+                context.PilotRatings.AddRange(pilotRatings);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedFlightState(DAirDatabaseContext context)
-    {
-        if (!context.FlightStates.Any())
+        private static void SeedFlightState(DAirDatabaseContext context)
         {
-            var flightStates = new List<FlightStateDto>
+            if (!context.FlightStates.Any())
+            {
+                var flightStates = new List<FlightStateDto>
         {
             new FlightStateDto { StateName = "Scheduled" },
             new FlightStateDto { StateName = "Delayed" },
@@ -231,16 +231,16 @@ public static class DatabaseSeeder
             new FlightStateDto { StateName = "Cancelled" }
         };
 
-            context.FlightStates.AddRange(flightStates);
-            context.SaveChanges();
+                context.FlightStates.AddRange(flightStates);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedFlights(DAirDatabaseContext context)
-    {
-        if (!context.Flights.Any())
+        private static void SeedFlights(DAirDatabaseContext context)
         {
-            var flights = new List<FlightDto>
+            if (!context.Flights.Any())
+            {
+                var flights = new List<FlightDto>
         {
             new FlightDto
             {
@@ -544,16 +544,16 @@ public static class DatabaseSeeder
             }
         };
 
-            context.Flights.AddRange(flights);
-            context.SaveChanges();
+                context.Flights.AddRange(flights);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedDailyTrips(DAirDatabaseContext context)
-    {
-        if (!context.DailyTrips.Any())
+        private static void SeedDailyTrips(DAirDatabaseContext context)
         {
-            var dailyTrips = new List<DailyTripDto>
+            if (!context.DailyTrips.Any())
+            {
+                var dailyTrips = new List<DailyTripDto>
         {
             new DailyTripDto { EmployeeNumber = "E001", BaseAirport = "LAX" },
             new DailyTripDto { EmployeeNumber = "E001", BaseAirport = "LAX" },
@@ -582,16 +582,16 @@ public static class DatabaseSeeder
             new DailyTripDto { EmployeeNumber = "E010", BaseAirport = "DFW" }
         };
 
-            context.DailyTrips.AddRange(dailyTrips);
-            context.SaveChanges();
+                context.DailyTrips.AddRange(dailyTrips);
+                context.SaveChanges();
+            }
         }
-    }
 
-    private static void SeedEmployeeAssignments(DAirDatabaseContext context)
-    {
-        if (!context.EmployeeAssignments.Any())
+        private static void SeedEmployeeAssignments(DAirDatabaseContext context)
         {
-            var employeeAssignments = new List<EmployeeAssignmentDto>
+            if (!context.EmployeeAssignments.Any())
+            {
+                var employeeAssignments = new List<EmployeeAssignmentDto>
         {
             new EmployeeAssignmentDto { TripID = 1, FlightCode = "F001" },
             new EmployeeAssignmentDto { TripID = 2, FlightCode = "F002" },
@@ -620,8 +620,9 @@ public static class DatabaseSeeder
             new EmployeeAssignmentDto { TripID = 25, FlightCode = "F025" }
         };
 
-            context.EmployeeAssignments.AddRange(employeeAssignments);
-            context.SaveChanges();
+                context.EmployeeAssignments.AddRange(employeeAssignments);
+                context.SaveChanges();
+            }
         }
     }
 }

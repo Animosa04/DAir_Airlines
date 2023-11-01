@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Database.DTOs
+﻿namespace Database.DTOs
 {
     public class AircraftModelDto
     {
@@ -13,4 +7,3 @@ namespace Infrastructure.Database.DTOs
         public int PassengerCapacity { get; set; }
     }
 }
-    
