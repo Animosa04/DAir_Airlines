@@ -1,5 +1,6 @@
 ﻿using Database.DTOs;
 using Database.Interfaces;
+using System.Globalization;
 
 namespace Database.Repositories
 {
@@ -24,8 +25,8 @@ namespace Database.Repositories
                                                StateName = fs.StateName,
                                                DepartureAirport = f.DepartureAirport,
                                                DestinationAirport = f.DestinationAirport,
-                                               ScheduledDepartureTime = f.ScheduledDepartureTime,
-                                               ScheduledArrivalTime = f.ScheduledArrivalTime
+                                               ScheduledDepartureTime = DateTime.ParseExact(f.ScheduledDepartureTime, "ddMMyyyy HHmm", CultureInfo.InvariantCulture),
+                                               ScheduledArrivalTime = DateTime.ParseExact(f.ScheduledArrivalTime, "ddMMyyyy HHmm", CultureInfo.InvariantCulture)
                                            })
                                      .FirstOrDefault();
 
