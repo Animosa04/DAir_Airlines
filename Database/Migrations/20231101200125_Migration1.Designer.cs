@@ -3,6 +3,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DAirDatabaseContext))]
-    partial class DAirDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231101200125_Migration1")]
+    partial class Migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,31 +254,6 @@ namespace Database.Migrations
                     b.ToTable("PilotCertifications");
                 });
 
-            modelBuilder.Entity("Database.DTOs.PilotConflictsDto", b =>
-                {
-                    b.Property<int>("ConflictID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConflictID"));
-
-                    b.Property<string>("ConflicsWithPilot")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PilotLicenseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ConflictID");
-
-                    b.HasIndex("ConflicsWithPilot");
-
-                    b.HasIndex("PilotLicenseNumber");
-
-                    b.ToTable("PilotConflicts");
-                });
-
             modelBuilder.Entity("Database.DTOs.PilotDto", b =>
                 {
                     b.Property<string>("PilotLicenseNumber")
@@ -304,7 +282,7 @@ namespace Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingID"));
 
-                    b.Property<string>("RatedCabinCrewMemberNumber")
+                    b.Property<string>("RatedEmployeeNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -317,7 +295,7 @@ namespace Database.Migrations
 
                     b.HasKey("RatingID");
 
-                    b.HasIndex("RatedCabinCrewMemberNumber");
+                    b.HasIndex("RatedEmployeeNumber");
 
                     b.HasIndex("RatingPilotLicenseNumber");
 
@@ -423,21 +401,6 @@ namespace Database.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Database.DTOs.PilotConflictsDto", b =>
-                {
-                    b.HasOne("Database.DTOs.PilotDto", null)
-                        .WithMany()
-                        .HasForeignKey("ConflicsWithPilot")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Database.DTOs.PilotDto", null)
-                        .WithMany()
-                        .HasForeignKey("PilotLicenseNumber")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Database.DTOs.PilotDto", b =>
                 {
                     b.HasOne("Database.DTOs.EmployeeDto", null)
@@ -449,9 +412,9 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.DTOs.PilotRatingsDto", b =>
                 {
-                    b.HasOne("Database.DTOs.CabinCrewMemberDto", null)
+                    b.HasOne("Database.DTOs.EmployeeDto", null)
                         .WithMany()
-                        .HasForeignKey("RatedCabinCrewMemberNumber")
+                        .HasForeignKey("RatedEmployeeNumber")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

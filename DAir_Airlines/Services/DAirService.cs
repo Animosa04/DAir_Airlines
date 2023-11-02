@@ -19,7 +19,7 @@ namespace DAir_Airlines.Services
             return flightDetails;
         }
 
-        public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
+        public List<PilotInfoDto> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
         {
             var crewMembers = _repository.GetCertifiedCrewMembersForAirbusA350AtAirport(airportCode);
             return crewMembers;

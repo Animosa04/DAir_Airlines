@@ -4,7 +4,7 @@
     {
         public int RatingID { get; set; }
         public string RatingPilotLicenseNumber { get; set; }
-        public string RatedEmployeeNumber { get; set; }
+        public string RatedCabinCrewMemberNumber { get; set; }
         public int Rating { get; set; }
     }
 }

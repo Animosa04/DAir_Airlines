@@ -1,5 +1,6 @@
 ﻿using Database.DTOs;
 using Database.Interfaces;
+using System.Globalization;
 
 namespace Database.Repositories
 {
@@ -24,36 +25,40 @@ namespace Database.Repositories
                                                StateName = fs.StateName,
                                                DepartureAirport = f.DepartureAirport,
                                                DestinationAirport = f.DestinationAirport,
-                                               ScheduledDepartureTime = f.ScheduledDepartureTime,
-                                               ScheduledArrivalTime = f.ScheduledArrivalTime
+                                               ScheduledDepartureTime = DateTime.ParseExact(f.ScheduledDepartureTime, "ddMMyyyy HHmm", CultureInfo.InvariantCulture),
+                                               ScheduledArrivalTime = DateTime.ParseExact(f.ScheduledArrivalTime, "ddMMyyyy HHmm", CultureInfo.InvariantCulture)
                                            })
                                      .FirstOrDefault();
 
             return flightInfo;
         }
 
-        public List<string> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
+        public List<PilotInfoDto> GetCertifiedCrewMembersForAirbusA350AtAirport(string airportCode)
         {
-            var crewNames = _context.Pilots
-                                    .Join(_context.Employees,
-                                          p => p.PilotEmployeeNumber,
-                                          e => e.EmployeeNumber,
-                                          (p, e) => new { Pilot = p, Employee = e })
-                                    .Join(_context.PilotCertifications,
-                                          pe => pe.Pilot.PilotLicenseNumber,
-                                          pc => pc.PilotLicenseNumber,
-                                          (pe, pc) => new { PilotEmployee = pe, PilotCertification = pc })
-                                    .Join(_context.DailyTrips,
-                                          pepc => pepc.PilotEmployee.Employee.EmployeeNumber,
-                                          dt => dt.EmployeeNumber,
-                                          (pepc, dt) => new { PilotEmployeeCertification = pepc, DailyTrip = dt })
-                                    .Where(pepcdt => pepcdt.PilotEmployeeCertification.PilotCertification.AircraftModel == "Airbus A350"
-                                                    && pepcdt.DailyTrip.BaseAirport == airportCode)
-                                    .Select(pepcdt => pepcdt.PilotEmployeeCertification.PilotEmployee.Employee.EmployeeName)
-                                    .Distinct()
-                                    .ToList();
+            var crewMembers = _context.Pilots
+                           .Join(_context.Employees,
+                                 p => p.PilotEmployeeNumber,
+                                 e => e.EmployeeNumber,
+                                 (p, e) => new { Pilot = p, Employee = e })
+                           .Join(_context.PilotCertifications,
+                                 pe => pe.Pilot.PilotLicenseNumber,
+                                 pc => pc.PilotLicenseNumber,
+                                 (pe, pc) => new { PilotEmployee = pe, PilotCertification = pc })
+                           .Join(_context.DailyTrips,
+                                 pepc => pepc.PilotEmployee.Employee.EmployeeNumber,
+                                 dt => dt.EmployeeNumber,
+                                 (pepc, dt) => new { PilotEmployeeCertification = pepc, DailyTrip = dt })
+                           .Where(pepcdt => pepcdt.PilotEmployeeCertification.PilotCertification.AircraftModel == "Airbus A350"
+                                           && pepcdt.DailyTrip.BaseAirport == airportCode)
+                           .Select(pepcdt => new PilotInfoDto
+                           {
+                               PilotName = pepcdt.PilotEmployeeCertification.PilotEmployee.Employee.EmployeeName,
+                               PilotLicenseNumber = pepcdt.PilotEmployeeCertification.PilotEmployee.Pilot.PilotLicenseNumber
+                           })
+                           .Distinct()
+                           .ToList();
 
-            return crewNames.ToList();
+            return crewMembers;
         }
 
         public int GetNumberOfCanceledFlights()
@@ -136,15 +141,15 @@ namespace Database.Repositories
         {
             var ratings = _context.PilotRatings
                                   .Join(
-                                      _context.Employees,
-                                      pr => pr.RatedEmployeeNumber,
-                                      e => e.EmployeeNumber,
-                                      (pr, e) => new { pr.Rating, e.EmployeeNumber }
+                                      _context.CabinCrewMembers,
+                                      pr => pr.RatedCabinCrewMemberNumber,
+                                      cc => cc.CabinCrewMemberNumber,
+                                      (pr, cc) => new { pr.Rating, CabinCrewMemberNumber = cc.CabinCrewMemberNumber }
                                   )
-                                  .GroupBy(x => x.EmployeeNumber)
+                                  .GroupBy(x => x.CabinCrewMemberNumber)
                                   .Select(g => new CabinCrewRatingDto
                                   {
-                                      EmployeeNumber = g.Key,
+                                      CabinCrewMemberNumber = g.Key,
                                       AverageRating = g.Average(x => x.Rating)
                                   })
                                   .OrderByDescending(r => r.AverageRating)
@@ -152,6 +157,7 @@ namespace Database.Repositories
 
             return ratings;
         }
+
 
     }
 }

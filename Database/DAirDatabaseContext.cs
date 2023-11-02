@@ -22,6 +22,7 @@ namespace Database
         public DbSet<FlightDto> Flights { get; set; }
         public DbSet<DailyTripDto> DailyTrips { get; set; }
         public DbSet<EmployeeAssignmentDto> EmployeeAssignments { get; set; }
+        public DbSet<PilotConflictsDto> PilotConflicts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,9 @@ namespace Database
 
             modelBuilder.Entity<PilotRatingsDto>()
                 .HasKey(pr => pr.RatingID);
+
+            modelBuilder.Entity<PilotConflictsDto>()
+                .HasKey(pr => pr.ConflictID);
 
             modelBuilder.Entity<FlightStateDto>()
                 .HasKey(fs => fs.StateID);
@@ -105,17 +109,35 @@ namespace Database
                 .WithMany()
                 .HasForeignKey("AircraftModel");
 
-            // PilotRatings to Pilot & Employee
+            // PilotConflicts to Pilot
+
+            modelBuilder.Entity<PilotConflictsDto>()
+                .HasOne(typeof(PilotDto))
+                .WithMany()
+                .HasForeignKey("PilotLicenseNumber")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction); ;
+            modelBuilder.Entity<PilotConflictsDto>()
+                .HasOne(typeof(PilotDto))
+                .WithMany()
+                .HasForeignKey("ConflicsWithPilot")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction); ;
+
+            // PilotRatings to Pilot & CrewMembers
             modelBuilder.Entity<PilotRatingsDto>()
                 .HasOne(typeof(PilotDto))
                 .WithMany()
                 .HasForeignKey("RatingPilotLicenseNumber")
-                .OnDelete(DeleteBehavior.Restrict); ;
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<PilotRatingsDto>()
-                .HasOne(typeof(EmployeeDto))
+                .HasOne(typeof(CabinCrewMemberDto))
                 .WithMany()
-                .HasForeignKey("RatedEmployeeNumber")
-                .OnDelete(DeleteBehavior.Restrict); ;
+                .HasForeignKey("RatedCabinCrewMemberNumber")
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Flight to Aircraft, Pilot (Captain & FirstOfficer), FlightState
             modelBuilder.Entity<FlightDto>()
