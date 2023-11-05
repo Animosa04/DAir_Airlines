@@ -1,0 +1,20 @@
+services:
+  dair-airlines:
+    image: animosa04/dair_airlines:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=database;Database=DAir;User Id=sa;Password=DAirAirlines123!;Trusted_Connection=False;Encrypt=False;
+    depends_on:
+      - database
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: DAirAirlines123!
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
