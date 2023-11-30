@@ -1,9 +1,10 @@
 ﻿using Database.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Database
 {
-    public class DAirDatabaseContext : DbContext
+    public class DAirDatabaseContext : IdentityDbContext
     {
         public DAirDatabaseContext(DbContextOptions<DAirDatabaseContext> options) : base(options)
         {
@@ -64,7 +65,7 @@ namespace Database
                 .HasKey(ea => ea.AssignmentID);
 
             modelBuilder.Entity<CabinCrewLanguagesDto>()
-                .HasKey(cl => new { cl.CabinCrewMemberNumber, cl.LanguageID });
+                .HasKey(cl => cl.CabinCrewLanguageID);
 
             modelBuilder.Entity<PilotCertificationsDto>()
                 .HasKey(pc => new { pc.PilotLicenseNumber, pc.AircraftModel });
@@ -174,6 +175,8 @@ namespace Database
                 .HasOne(typeof(FlightDto))
                 .WithMany()
                 .HasForeignKey("FlightCode");
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

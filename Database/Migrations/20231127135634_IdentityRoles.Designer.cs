@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DAirDatabaseContext))]
-    partial class DAirDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231127135634_IdentityRoles")]
+    partial class IdentityRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,22 +63,13 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.DTOs.CabinCrewLanguagesDto", b =>
                 {
-                    b.Property<int>("CabinCrewLanguageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CabinCrewLanguageID"));
-
                     b.Property<string>("CabinCrewMemberNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("LanguageID")
                         .HasColumnType("int");
 
-                    b.HasKey("CabinCrewLanguageID");
-
-                    b.HasIndex("CabinCrewMemberNumber");
+                    b.HasKey("CabinCrewMemberNumber", "LanguageID");
 
                     b.HasIndex("LanguageID");
 
