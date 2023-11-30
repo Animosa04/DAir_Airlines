@@ -3,16 +3,16 @@ using DAir_Airlines.Services;
 using Database;
 using Database.Interfaces;
 using Database.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
-using Microsoft.AspNetCore.Identity; 
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
-using Microsoft.IdentityModel.Tokens;  
-using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog; // Add this line for OpenApi
 using MongoDB.Driver;
+using Serilog; // Add this line for OpenApi
+using System.Text;
+using System.Text.Json;
 
 
 var builder = WebApplication.CreateBuilder(args);

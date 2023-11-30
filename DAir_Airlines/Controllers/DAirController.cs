@@ -1,19 +1,17 @@
 ﻿using DAir_Airlines.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+using DAir_Airlines.Models;
+using DAir_Airlines.Security;
+using Database.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Configuration;
-using DAir_Airlines.Security;
-using Microsoft.AspNetCore.Authorization;
-using Database.DTOs;
-using MongoDB.Driver;
-using MongoDB.Bson;
-using Serilog;
 using ILogger = Serilog.ILogger;
-using DAir_Airlines.Models;
 
 namespace DAir_Airlines.Controllers
 {
@@ -121,7 +119,7 @@ namespace DAir_Airlines.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")] // Only users with the Admin role can access this endpoint
+        [Authorize(Roles = "Admin")]
         [Route("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterModel model, string roleName)
         {
@@ -189,7 +187,7 @@ namespace DAir_Airlines.Controllers
 
         [HttpGet]
         [Route("PilotConflicts")]
-        [Authorize(Roles = "Pilot")] // Only pilots can access
+        [Authorize(Roles = "Pilot")]
         public async Task<IActionResult> GetPilotConflicts()
         {
             var conflicts = await _dAirservice.GetAllPilotConflictsAsync();
@@ -199,7 +197,7 @@ namespace DAir_Airlines.Controllers
 
         [HttpPost]
         [Route("PilotConflicts")]
-        //[Authorize(Roles = "Pilot")] // Only pilots can access
+        [Authorize(Roles = "Pilot")]
         public async Task<IActionResult> CreatePilotConflict([FromBody] PilotConflictsDto pilotConflict)
         {
             _logger.ForContext("Username", User.Identity.Name)
@@ -212,7 +210,7 @@ namespace DAir_Airlines.Controllers
 
         [HttpPut]
         [Route("PilotConflicts/{conflictId}")]
-        [Authorize(Roles = "Pilot")] // Only pilots can access
+        [Authorize(Roles = "Pilot")]
         public async Task<IActionResult> UpdatePilotConflict(int conflictId, [FromBody] PilotConflictsDto pilotConflict)
         {
             _logger.ForContext("Username", User.Identity.Name)
@@ -279,7 +277,7 @@ namespace DAir_Airlines.Controllers
         {
             _logger.ForContext("Username", User.Identity.Name)
                    .ForContext("OperationType", "DELETE")
-                   .Warning("Deleting cabin crew language for crew member"); 
+                   .Warning("Deleting cabin crew language for crew member");
             var success = await _dAirservice.DeleteCabinCrewLanguageAsync(crewMemberNumber, languageId);
             if (!success)
             {
